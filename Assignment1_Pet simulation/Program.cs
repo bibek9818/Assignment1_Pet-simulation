@@ -4,10 +4,9 @@ using System.Xml.Linq;
 
 class VirtualFucntions
 {
-    public string PetType;
-    public string PetName;
-    public string Type { get; set; }
-    public string Name { get; set; }
+    public string VirtualPetType;
+    public string VirtualPetName;
+
 
     public VirtualPet(string type, string name)
     {
@@ -148,13 +147,13 @@ class VirtualFucntions
             switch(result)
             {
                 case 1:
-                    type = "Cat";
+                    VirtualPetType = "Cat";
                     break;
                 case 2:
-                    type = "Dog";
+                    VirtualPetType = "Dog";
                     break;
                 case 3:
-                    Type = "Rabbit";
+                    VirtualPetType = "Rabbit";
                     break;
 
             }
@@ -187,7 +186,7 @@ static void Main()
 
    
 
-    VirtualPet myPet = new VirtualPet(result, petName);
+    VirtualPet myPet = new VirtualPet();
 
 
 
