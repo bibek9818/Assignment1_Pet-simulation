@@ -98,8 +98,7 @@ class Program
             Console.WriteLine($"You have named him {animal}!, let's take good care of him.");
             mainmenu();
         }
-
-
+    
 //Making submenu
 
 
