@@ -2,46 +2,50 @@
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
 
-class VirtualFucntions
+class VirtualPet
 {
-    public string VirtualPetType;
-    public string VirtualPetName;
+    //  public string VirtualPetType;
+    //  public string VirtualPetName;
+    public string type;
+    public string name;
+    public int hunger = 5;
+    public int happiness = 5;
+    public int health = 5;
 
 
-    public VirtualPet(string type, string name)
-    {
-        Type = type;
-        Name = name;
-       /* Hunger = 5;     // Initial values for hunger, happiness, and health
-        Happiness = 5;
-        Health = 5;*/
-    }
 
 
-    //creating functions
-    private static object animal;
+
 
 
     public void feeding()
     {
-
+        hunger = Math.Max(0, hunger - 2);
+        health = Math.Min(10, health + 1);
+        Console.WriteLine($"{name} has been fed. Hunger decreased, and health increased.\n");
     }
 
 
     public void playing()
     {
-
+        happiness = Math.Min(10, happiness + 2);
+        hunger = Math.Min(10, hunger + 1);
+        Console.WriteLine($"{name} has played. Happiness increased, and hunger slightly increased.\n");
     }
 
 
-    public void Resting()
-    { 
-
+    public void resting()
+    {
+        health = Math.Min(10, health + 2);
+        happiness = Math.Max(0, happiness - 1);
+        Console.WriteLine($"{name} has rested. Health increased, and happiness slightly decreased.\n");
     }
+
 
 
     public void CheckBodyStatus()
     {
+
 
     }
 
@@ -50,12 +54,7 @@ class VirtualFucntions
 
     static void MainUserDisplay()
     {
-        Console.WriteLine("Main Menu\n");
-        Console.WriteLine($"1.Feed ");
-        Console.WriteLine($"2. Play with {animal}");
-        Console.WriteLine("3. Let animal rest ");
-        Console.WriteLine("4. check animal status ");
-        Console.WriteLine("5. Exit ");
+
         string userInput = Console.ReadLine();
         int mainmenuResult = Int32.Parse(userInput);
 
@@ -86,7 +85,7 @@ class VirtualFucntions
 
         while (true)
         {
-           // DisplayStatus();
+            // DisplayStatus();
 
             Console.WriteLine("Choose an action:");
             Console.WriteLine("1. Feed the pet");
@@ -101,31 +100,31 @@ class VirtualFucntions
 
             int choice;
 
-            if(mainmenuResult<1 || mainmenuResult>4)
+            if (mainmenuResult < 1 || mainmenuResult > 4)
             {
                 Console.WriteLine("Invalid choice. Please enter a number between 1 and 4.");
             }
             else
-            switch (mainmenuResult)
-            {
-                case 1:
-                    feeding();
-                    break;
-                case 2:
-                    playing();
-                    break;
-                case 3:
-                    Resting();
-                    break;
-                case 4:
+                switch (mainmenuResult)
+                {
+                    case 1:
+                        feeding();
+                        break;
+                    case 2:
+                        playing();
+                        break;
+                    case 3:
+                        resting();
+                        break;
+                    case 4:
                         CheckBodyStatus();
-                    break;
-                default:
-                       
-                    return;
+                        break;
+                    default:
+
+                        return;
                 }
 
-        //    TimePasses();  Simulate the passage of time
+            //    TimePasses();  Simulate the passage of time
         }
     }
 
@@ -142,21 +141,25 @@ class VirtualFucntions
         int result = Int32.Parse(firstoption);
 
 
-        if(result>=1 && result<=3)
+        if (result >= 1 && result <= 3)
         {
-            switch(result)
+            switch (result)
             {
                 case 1:
-                    VirtualPetType = "Cat";
+                    type = "Cat";
                     break;
                 case 2:
-                    VirtualPetType = "Dog";
+                    type = "Dog";
                     break;
                 case 3:
-                    VirtualPetType = "Rabbit";
+                    type = "Rabbit";
                     break;
 
             }
+        }
+        else
+        {
+            Console.WriteLine("Invalid choice. Please enter a number between 1 and 3.");
         }
 
 
@@ -172,13 +175,15 @@ class VirtualFucntions
         PickVirtualPet();
 
         Console.Write("Give your pet a name: ");
-        string petName = Console.ReadLine();
+        name = Console.ReadLine();
 
     }
 
-
+}
 
 }
+
+
 class Program
 {
 static void Main()
@@ -187,27 +192,14 @@ static void Main()
    
 
     VirtualPet myPet = new VirtualPet();
+        myPet.mainmenu();
+       
 
 
 
 
 
 
-
-
-
-
-
-    //If user inputs valuee 1, then Cat is selected
-    if (result == 1)
-
-    {
-        Console.Write("You've choosen Cat, what would you like to name it\n");
-        string animal = Console.ReadLine();
-
-        Console.WriteLine($"You have named him {animal}!, let's take good care of him.");
-        mainmenu();
-    }
 
 
 
