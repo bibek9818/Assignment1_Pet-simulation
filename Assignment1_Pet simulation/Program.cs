@@ -17,7 +17,7 @@ class VirtualPet
 
 
 
-
+    //Decreases hunger, slightly increases health.
     public void feeding()
     {
         hunger = Math.Max(0, hunger - 2);
@@ -25,7 +25,7 @@ class VirtualPet
         Console.WriteLine($"{name} has been fed. Hunger decreased, and health increased.\n");
     }
 
-
+    //Increases happiness, slightly increases hunger.
     public void playing()
     {
         happiness = Math.Min(10, happiness + 2);
@@ -33,7 +33,7 @@ class VirtualPet
         Console.WriteLine($"{name} has played. Happiness increased, and hunger slightly increased.\n");
     }
 
-
+    //Improves health, decreases happiness slightly.
     public void resting()
     {
         health = Math.Min(10, health + 2);
@@ -42,65 +42,65 @@ class VirtualPet
     }
 
 
-
+    //•	Track and display pet’s stats: hunger, happiness, and health, each on a scale of 1 to 10.
     public void CheckBodyStatus()
     {
+        Console.WriteLine($"Pet Type: {type}\tPet Name: {name}");
+        Console.WriteLine($"Hunger: {hunger}/10\tHappiness: {happiness}/10\tHealth: {health}/10\n");
 
+         
 
     }
 
-
-
-
-    static void MainUserDisplay()
+    //Simulate the passage of time, where each action represents the passing of an hour.
+    public void PassageofTime()
     {
+        hunger += 1;
+        happiness -= 1;
 
-        string userInput = Console.ReadLine();
-        int mainmenuResult = Int32.Parse(userInput);
-
-        switch (userInput)
+        // Check for consequences of neglect
+        if (hunger >= 8)
         {
-            case "1":
-                Console.WriteLine("You entered 1.");
-                break;
+            health = Math.Max(0, health - 2);
+            Console.WriteLine($"{name} is very hungry. Health is decreasing.\n");
+        }
 
-            case "2":
-                Console.WriteLine("You entered 2.");
-                break;
-
-            case "3":
-                Console.WriteLine("You entered 3.");
-                break;
-
-            default:
-                Console.WriteLine("Invalid input. Please enter a number between 1 and 3.");
-                break;
+        if (happiness <= 2)
+        {
+            Console.WriteLine($"{name} is very unhappy. Consider playing with {name}.\n");
         }
     }
+
+
+
+
+
 
     //Making submenu
     public void submenu()
     {
-        Console.WriteLine("Welcome to the Virtual Pet Simulator!");
+       
 
         while (true)
         {
             // DisplayStatus();
-
+            Console.WriteLine("Main Menu :\n");
             Console.WriteLine("Choose an action:");
             Console.WriteLine("1. Feed the pet");
             Console.WriteLine("2. Play with the pet");
             Console.WriteLine("3. Rest the pet");
             Console.WriteLine("4. Check the pet status");
             Console.WriteLine("5. Exit");
+            Console.WriteLine("\n\n");
+            Console.WriteLine("Enter the input :   ");
 
 
             string userInput = Console.ReadLine();
             int mainmenuResult = Int32.Parse(userInput);
+       //     Console.WriteLine($"User Input : {mainmenuResult} ");
+       
 
-            int choice;
-
-            if (mainmenuResult < 1 || mainmenuResult > 4)
+            if (mainmenuResult < 1 || mainmenuResult > 5)
             {
                 Console.WriteLine("Invalid choice. Please enter a number between 1 and 4.");
             }
@@ -119,12 +119,13 @@ class VirtualPet
                     case 4:
                         CheckBodyStatus();
                         break;
+                    case 5:
+                        Environment.Exit(0);
+                        break;
                     default:
 
                         return;
                 }
-
-            //    TimePasses();  Simulate the passage of time
         }
     }
 
@@ -132,13 +133,25 @@ class VirtualPet
 
     public void PickVirtualPet()
     {
-
+     
         Console.WriteLine("1. Cat\n");
         Console.WriteLine("2. Dog\n");
         Console.WriteLine("3. Rabbit\n");
         Console.WriteLine("Choose the pet you want to raise by inputting the number\n\n");
+     
         string firstoption = Console.ReadLine();
         int result = Int32.Parse(firstoption);
+
+
+       // Console.WriteLine($"User Inputted : {result}");
+
+      
+
+
+
+
+        //Console.WriteLine("The current status of the virtual pet is :\n");
+        //CheckBodyStatus();
 
 
         if (result >= 1 && result <= 3)
@@ -173,15 +186,19 @@ class VirtualPet
 
 
         PickVirtualPet();
+        Console.WriteLine("\n\n");
+        Console.WriteLine($"You have choosen {type}, what would you like to name your pet? : \n");
 
-        Console.Write("Give your pet a name: ");
         name = Console.ReadLine();
+        Console.WriteLine("\n\n");
+
+        Console.WriteLine($"You've chosen a {type} named {name} , Let's take good care of him!\n\n");
 
     }
 
 }
 
-}
+
 
 
 class Program
@@ -189,18 +206,9 @@ class Program
 static void Main()
 {
 
-   
-
     VirtualPet myPet = new VirtualPet();
         myPet.mainmenu();
-       
-
-
-
-
-
-
-
+        myPet.submenu();
 
 
     }
