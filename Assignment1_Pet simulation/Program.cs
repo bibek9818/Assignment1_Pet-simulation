@@ -1,52 +1,47 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
-using System.Xml.Linq;
 
-class VirtualPet
+
+class VirtualPetClass
 {
-    //  public string VirtualPetType;
-    //  public string VirtualPetName;
-    public string type;
-    public string name;
-    public int hunger = 5;
-    public int happiness = 5;
-    public int health = 5;
-
-
-
-
+  
+    public string VirtualPetType;
+    public string VirtualPetName;
+    public int PetHunger = 5;
+    public int PetHappiness = 5;
+    public int PetHealth = 5;
 
 
     //Decreases hunger, slightly increases health.
     public void feeding()
     {
-        hunger = Math.Max(0, hunger - 2);
-        health = Math.Min(10, health + 1);
-        Console.WriteLine($"{name} has been fed. Hunger decreased, and health increased.\n");
+        PetHunger = Math.Max(0, PetHunger - 2);
+        PetHealth = Math.Min(10, PetHealth + 1);
+        Console.WriteLine($"{VirtualPetName} has been fed. Hunger decreased, and health increased.\n");
     }
 
     //Increases happiness, slightly increases hunger.
     public void playing()
     {
-        happiness = Math.Min(10, happiness + 2);
-        hunger = Math.Min(10, hunger + 1);
-        Console.WriteLine($"{name} has played. Happiness increased, and hunger slightly increased.\n");
+        PetHappiness = Math.Min(10, PetHappiness + 2);
+        PetHunger = Math.Min(10, PetHunger + 1);
+        Console.WriteLine($"{VirtualPetName} has played. Happiness increased, and hunger slightly increased.\n");
     }
 
     //Improves health, decreases happiness slightly.
     public void resting()
     {
-        health = Math.Min(10, health + 2);
-        happiness = Math.Max(0, happiness - 1);
-        Console.WriteLine($"{name} has rested. Health increased, and happiness slightly decreased.\n");
+        PetHealth = Math.Min(10, PetHealth + 2);
+        PetHappiness = Math.Max(0, PetHappiness - 1);
+        Console.WriteLine($"{VirtualPetName} has rested. Health increased, and happiness slightly decreased.\n");
     }
 
 
     //•	Track and display pet’s stats: hunger, happiness, and health, each on a scale of 1 to 10.
     public void CheckBodyStatus()
     {
-        Console.WriteLine($"Pet Type: {type}\tPet Name: {name}");
-        Console.WriteLine($"Hunger: {hunger}/10\tHappiness: {happiness}/10\tHealth: {health}/10\n");
+        Console.WriteLine("\n\n");
+        Console.WriteLine($"****Pet Type: {VirtualPetType}\tPet Name: {VirtualPetName}****");
+        Console.WriteLine($"****Hunger: {PetHunger}/10\tHappiness: {PetHappiness}/10\t\tHealth: {PetHealth}/10****\n");
 
          
 
@@ -55,35 +50,33 @@ class VirtualPet
     //Simulate the passage of time, where each action represents the passing of an hour.
     public void PassageofTime()
     {
-        hunger += 1;
-        happiness -= 1;
+        PetHunger += 1;
+        PetHappiness -= 1;
 
-        // Check for consequences of neglect
-        if (hunger >= 8)
+ 
+        if (PetHunger >= 8)
         {
-            health = Math.Max(0, health - 2);
-            Console.WriteLine($"{name} is very hungry. Health is decreasing.\n");
+            PetHealth = Math.Max(0, PetHealth - 2);
+            Console.WriteLine($"{VirtualPetName} is very hungry. Health is decreasing.\n");
         }
 
-        if (happiness <= 2)
+        if (PetHappiness <= 2)
         {
-            Console.WriteLine($"{name} is very unhappy. Consider playing with {name}.\n");
+            Console.WriteLine($"{VirtualPetName} is very unhappy. Consider playing with {VirtualPetName}.\n");
         }
     }
 
 
 
 
-
-
-    //Making submenu
+    //Submenu for selecting pet actions
     public void submenu()
     {
        
 
         while (true)
         {
-            // DisplayStatus();
+            Console.WriteLine("\n\n");
             Console.WriteLine("Main Menu :\n");
             Console.WriteLine("Choose an action:");
             Console.WriteLine("1. Feed the pet");
@@ -97,7 +90,7 @@ class VirtualPet
 
             string userInput = Console.ReadLine();
             int mainmenuResult = Int32.Parse(userInput);
-       //     Console.WriteLine($"User Input : {mainmenuResult} ");
+
        
 
             if (mainmenuResult < 1 || mainmenuResult > 5)
@@ -126,11 +119,12 @@ class VirtualPet
 
                         return;
                 }
+            PassageofTime();
         }
     }
 
 
-
+    // Main Entrance to pick the Virtual Pet
     public void PickVirtualPet()
     {
      
@@ -140,32 +134,22 @@ class VirtualPet
         Console.WriteLine("Choose the pet you want to raise by inputting the number\n\n");
      
         string firstoption = Console.ReadLine();
-        int result = Int32.Parse(firstoption);
-
-
-       // Console.WriteLine($"User Inputted : {result}");
-
-      
+        int PickPet = Int32.Parse(firstoption);
 
 
 
-
-        //Console.WriteLine("The current status of the virtual pet is :\n");
-        //CheckBodyStatus();
-
-
-        if (result >= 1 && result <= 3)
+        if (PickPet >= 1 && PickPet <= 3)
         {
-            switch (result)
+            switch (PickPet)
             {
                 case 1:
-                    type = "Cat";
+                    VirtualPetType = "Cat";
                     break;
                 case 2:
-                    type = "Dog";
+                    VirtualPetType = "Dog";
                     break;
                 case 3:
-                    type = "Rabbit";
+                    VirtualPetType = "Rabbit";
                     break;
 
             }
@@ -187,28 +171,27 @@ class VirtualPet
 
         PickVirtualPet();
         Console.WriteLine("\n\n");
-        Console.WriteLine($"You have choosen {type}, what would you like to name your pet? : \n");
+        Console.WriteLine($"You have choosen {VirtualPetType}, what would you like to name your pet? : \n");
 
-        name = Console.ReadLine();
+        VirtualPetName = Console.ReadLine();
         Console.WriteLine("\n\n");
 
-        Console.WriteLine($"You've chosen a {type} named {name} , Let's take good care of him!\n\n");
+        Console.WriteLine($"You've chosen a {VirtualPetType} named {VirtualPetName} , Let's take good care of him!\n\n");
 
     }
 
 }
 
 
-
-
 class Program
 {
+    //This is the main function that is being executed.
 static void Main()
 {
 
-    VirtualPet myPet = new VirtualPet();
-        myPet.mainmenu();
-        myPet.submenu();
+    VirtualPetClass Objpet = new VirtualPetClass();
+        Objpet.mainmenu();
+        Objpet.submenu();
 
 
     }
